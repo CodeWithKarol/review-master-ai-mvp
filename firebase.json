@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/review-master-ai-mvp",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
