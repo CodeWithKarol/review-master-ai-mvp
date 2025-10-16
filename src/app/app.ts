@@ -199,6 +199,11 @@ export class App {
     },
   ]);
 
+  protected readonly activeFilterLabel = computed(() => {
+    const activeFilter = this.filters().find((f) => f.active);
+    return activeFilter?.label || 'All Reviews';
+  });
+
   protected readonly filteredReviews = computed(() => {
     const activeFilter = this.filters().find((f) => f.active);
     const reviews = this.allReviews();
