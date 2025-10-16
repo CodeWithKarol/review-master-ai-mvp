@@ -84,7 +84,86 @@
       </aside>
 
       <main class="main-content">
-        <router-outlet />
+        <div class="reviews-container">
+          <div class="reviews-header">
+            <h1 class="reviews-title">All Reviews</h1>
+            <span class="reviews-count">{{ filteredReviews().length }} reviews</span>
+          </div>
+
+          <div class="reviews-list">
+            @for (review of filteredReviews(); track review.id) {
+            <mat-card class="review-card">
+              <mat-card-header>
+                <div class="review-avatar" mat-card-avatar>{{ review.initials }}</div>
+                <mat-card-title class="review-author">{{ review.author }}</mat-card-title>
+                <mat-card-subtitle class="review-meta">
+                  <span
+                    class="platform-badge"
+                    [class]="'platform-' + review.platform.toLowerCase()"
+                  >
+                    {{ review.platform }}
+                  </span>
+                  <span class="review-date">{{ review.date | date : 'MMM d, yyyy' }}</span>
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <div class="review-rating">
+                  @for (filled of getStarArray(review.rating); track $index) {
+                  <mat-icon class="star" [class.filled]="filled">
+                    {{ filled ? 'star' : 'star_border' }}
+                  </mat-icon>
+                  }
+                </div>
+
+                <p class="review-text">{{ review.text }}</p>
+
+                <div class="review-tags">
+                  @if (review.status === 'new') {
+                  <mat-chip class="status-chip new">New</mat-chip>
+                  } @if (review.status === 'responded') {
+                  <mat-chip class="status-chip responded">Responded</mat-chip>
+                  } @if (review.status === 'needs-response') {
+                  <mat-chip class="status-chip needs-response">Needs Response</mat-chip>
+                  }
+                </div>
+
+                @if (review.aiSuggestion) {
+                <div class="ai-suggestion">
+                  <div class="ai-suggestion-header">
+                    <mat-icon class="ai-icon">auto_awesome</mat-icon>
+                    <span class="ai-label">Suggested Response</span>
+                  </div>
+                  <p class="ai-suggestion-text">{{ review.aiSuggestion }}</p>
+                  <div class="ai-actions">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="copyResponse(review.aiSuggestion!)"
+                    >
+                      <mat-icon>content_copy</mat-icon>
+                      Copy Response
+                    </button>
+                    @if (review.status === 'responded') {
+                    <span class="already-responded">✓ Already Responded</span>
+                    }
+                  </div>
+                </div>
+                } @if (review.response && review.status === 'responded') {
+                <mat-divider class="response-divider"></mat-divider>
+                <div class="user-response">
+                  <div class="response-header">
+                    <mat-icon>reply</mat-icon>
+                    <span>Your Response</span>
+                  </div>
+                  <p class="response-text">{{ review.response }}</p>
+                </div>
+                }
+              </mat-card-content>
+            </mat-card>
+            }
+          </div>
+        </div>
       </main>
     </div>
   </mat-sidenav-content>

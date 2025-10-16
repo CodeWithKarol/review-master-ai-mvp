@@ -52,3 +52,20 @@ body {
     display: inline-block !important;
   }
 }
+
+// Fix Material Card header alignment
+.review-card {
+  .mat-mdc-card-header {
+    align-items: flex-start !important;
+  }
+
+  .mat-mdc-card-title {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mat-mdc-card-subtitle {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
