@@ -93,21 +93,35 @@
           <div class="reviews-list">
             @for (review of filteredReviews(); track review.id) {
             <mat-card class="review-card">
-              <mat-card-header>
-                <div class="review-avatar" mat-card-avatar>{{ review.initials }}</div>
-                <mat-card-title class="review-author">{{ review.author }}</mat-card-title>
-                <mat-card-subtitle class="review-meta">
-                  <span
-                    class="platform-badge"
-                    [class]="'platform-' + review.platform.toLowerCase()"
-                  >
-                    {{ review.platform }}
-                  </span>
-                  <span class="review-date">{{ review.date | date : 'MMM d, yyyy' }}</span>
-                </mat-card-subtitle>
-              </mat-card-header>
-
               <mat-card-content>
+                <div class="review-header">
+                  <div class="review-avatar">{{ review.initials }}</div>
+                  <div class="review-header-content">
+                    <div class="review-author-row">
+                      <span class="review-author">{{ review.author }}</span>
+                      <div class="review-status-chips">
+                        @if (review.status === 'new') {
+                        <mat-chip class="status-chip new">New</mat-chip>
+                        } @if (review.status === 'responded') {
+                        <mat-chip class="status-chip responded">Responded</mat-chip>
+                        } @if (review.status === 'needs-response') {
+                        <mat-chip class="status-chip needs-response">Needs Response</mat-chip>
+                        }
+                      </div>
+                    </div>
+                    <div class="review-meta">
+                      <span
+                        class="platform-badge"
+                        [class]="'platform-' + review.platform.toLowerCase()"
+                      >
+                        <span class="platform-icon">●</span>
+                        {{ review.platform }}
+                      </span>
+                      <span class="review-date">{{ review.date | date : 'MMM d, yyyy' }}</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="review-rating">
                   @for (filled of getStarArray(review.rating); track $index) {
                   <mat-icon class="star" [class.filled]="filled">
@@ -117,16 +131,6 @@
                 </div>
 
                 <p class="review-text">{{ review.text }}</p>
-
-                <div class="review-tags">
-                  @if (review.status === 'new') {
-                  <mat-chip class="status-chip new">New</mat-chip>
-                  } @if (review.status === 'responded') {
-                  <mat-chip class="status-chip responded">Responded</mat-chip>
-                  } @if (review.status === 'needs-response') {
-                  <mat-chip class="status-chip needs-response">Needs Response</mat-chip>
-                  }
-                </div>
 
                 @if (review.aiSuggestion) {
                 <div class="ai-suggestion">
