@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { DatePipe } from '@angular/common';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface StatCard {
   value: string | number;
@@ -54,6 +56,8 @@ interface Review {
 export class App {
   protected readonly title = signal('ReviewMaster AI');
   protected readonly drawerOpened = signal(false);
+  private clipboard = inject(Clipboard);
+  private snackBar = inject(MatSnackBar);
 
   protected readonly stats = signal<StatCard[]>([
     { value: 147, label: 'Total Reviews' },
@@ -247,6 +251,46 @@ export class App {
   }
 
   protected copyResponse(suggestion: string): void {
-    navigator.clipboard.writeText(suggestion);
+    this.clipboard.copy(suggestion);
+
+    this.snackBar.open('AI suggestion copied to clipboard!', 'Close', { duration: 2000 });
+  }
+
+  protected markAsResponded(reviewId: number): void {
+    this.allReviews.update((reviews) =>
+      reviews.map((review) =>
+        review.id === reviewId ? { ...review, status: 'responded' as const } : review
+      )
+    );
+
+    this.updateFilterCounts();
+
+    this.snackBar.open('Review marked as responded!', 'Close', { duration: 2000 });
+  }
+
+  private updateFilterCounts(): void {
+    const reviews = this.allReviews();
+    const newCount = reviews.filter((r) => r.status === 'new').length;
+    const needsResponseCount = reviews.filter((r) => r.status === 'needs-response').length;
+    const respondedCount = reviews.filter((r) => r.status === 'responded').length;
+    const allCount = reviews.length;
+
+    this.filters.update((filters) =>
+      filters.map((filter) => {
+        if (filter.label === 'All Reviews') {
+          return { ...filter, count: allCount };
+        }
+        if (filter.label === 'New Reviews') {
+          return { ...filter, count: newCount };
+        }
+        if (filter.label === 'Needs Response') {
+          return { ...filter, count: needsResponseCount };
+        }
+        if (filter.label === 'Responded') {
+          return { ...filter, count: respondedCount };
+        }
+        return filter;
+      })
+    );
   }
 }

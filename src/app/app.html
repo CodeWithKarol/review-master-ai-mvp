@@ -150,6 +150,11 @@
                     </button>
                     @if (review.status === 'responded') {
                     <span class="already-responded">✓ Already Responded</span>
+                    } @else {
+                    <button mat-raised-button color="accent" (click)="markAsResponded(review.id)">
+                      <mat-icon>check_circle</mat-icon>
+                      Mark as Responded
+                    </button>
                     }
                   </div>
                 </div>
