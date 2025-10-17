@@ -17,32 +17,51 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 12px;
   color: inherit;
+
+  @media (min-width: 640px) {
+    padding: 0 16px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 20px;
+  }
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-shrink: 0;
 
+  @media (min-width: 640px) {
+    gap: 12px;
+  }
+
   .logo-icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     background: linear-gradient(135deg, #0891b2, #06b6d4);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     flex-shrink: 0;
+
+    @media (min-width: 640px) {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
   }
 
   .logo-text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0;
     padding: 0;
@@ -62,13 +81,18 @@
 
     @media (min-width: 768px) {
       display: inline-block !important;
+      font-size: 18px;
     }
   }
 }
 
 .menu-button {
   display: inline-flex;
-  margin-right: 8px;
+  margin-right: 4px;
+
+  @media (min-width: 640px) {
+    margin-right: 8px;
+  }
 
   @media (min-width: 1280px) {
     display: none;
@@ -97,7 +121,11 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+
+  @media (min-width: 640px) {
+    gap: 8px;
+  }
 
   button {
     &:hover {
@@ -127,16 +155,24 @@
 // Sidenav container
 .sidenav-container {
   position: fixed;
-  top: 64px;
+  top: 56px;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: var(--mat-sys-surface-container-lowest);
   overflow: hidden;
+
+  @media (min-width: 640px) {
+    top: 64px;
+  }
 }
 
 .sidenav {
-  width: 280px;
+  width: 260px;
+
+  @media (min-width: 640px) {
+    width: 280px;
+  }
 
   @media (min-width: 1280px) {
     display: none;
@@ -144,9 +180,17 @@
 }
 
 .sidebar-content {
-  padding: 24px 16px;
+  padding: 16px 12px;
   height: 100%;
   overflow-y: auto;
+
+  @media (min-width: 640px) {
+    padding: 20px 16px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 24px 16px;
+  }
 }
 
 // App container and layout
@@ -159,10 +203,10 @@
 
 // Desktop Sidebar styles
 .sidebar-desktop {
-  width: 280px;
+  width: 260px;
   background-color: var(--mat-sys-surface);
   border-right: 1px solid var(--mat-sys-outline-variant);
-  padding: 24px 16px;
+  padding: 20px 14px;
   overflow-y: auto;
   position: fixed;
   left: 0;
@@ -172,6 +216,8 @@
 
   @media (min-width: 1280px) {
     display: block;
+    width: 280px;
+    padding: 24px 16px;
   }
 }
 
@@ -179,42 +225,89 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  @media (min-width: 640px) {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: 1280px) {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
 }
 
 .stat-card {
   text-align: center;
   background-color: var(--mat-sys-surface-container-low);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: none;
   border: 1px solid var(--mat-sys-outline-variant);
 
+  @media (min-width: 640px) {
+    border-radius: 10px;
+  }
+
+  @media (min-width: 1280px) {
+    border-radius: 12px;
+  }
+
   mat-card-content {
-    padding: 16px 8px !important;
+    padding: 12px 6px !important;
+
+    @media (min-width: 640px) {
+      padding: 14px 8px !important;
+    }
+
+    @media (min-width: 1280px) {
+      padding: 16px 8px !important;
+    }
   }
 
   .stat-value {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--mat-sys-on-surface);
     margin-bottom: 4px;
+
+    @media (min-width: 640px) {
+      font-size: 26px;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 28px;
+    }
   }
 
   .stat-label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--mat-sys-on-surface-variant);
     font-weight: 500;
+
+    @media (min-width: 640px) {
+      font-size: 12px;
+    }
   }
 }
 
 // Filter section
 .filter-section {
   .filter-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    margin: 0 0 12px 8px;
+    margin: 0 0 10px 6px;
     color: var(--mat-sys-on-surface);
+
+    @media (min-width: 640px) {
+      font-size: 15px;
+      margin: 0 0 12px 8px;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -222,19 +315,33 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+
+  @media (min-width: 640px) {
+    gap: 8px;
+  }
 
   .filter-item {
     cursor: pointer;
-    border-radius: 8px;
-    padding: 12px 16px;
-    min-height: 44px;
+    border-radius: 6px;
+    padding: 10px 12px;
+    min-height: 42px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #e5e7eb;
     position: relative;
+
+    @media (min-width: 640px) {
+      border-radius: 8px;
+      padding: 12px 14px;
+      min-height: 44px;
+    }
+
+    @media (min-width: 1280px) {
+      padding: 12px 16px;
+    }
 
     &:hover:not(.active) {
       background-color: #d1d5db;
@@ -256,26 +363,39 @@
 
     .filter-label {
       flex: 1;
-      font-size: 14px;
+      font-size: 13px;
       color: #1f2937;
       font-weight: 500;
-      padding-right: 12px;
+      padding-right: 10px;
+
+      @media (min-width: 640px) {
+        font-size: 14px;
+        padding-right: 12px;
+      }
     }
 
     .filter-count {
-      min-width: 32px;
-      height: 28px;
+      min-width: 28px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: #9ca3af;
       color: #1f2937;
-      border-radius: 14px;
-      font-size: 13px;
+      border-radius: 12px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 0 12px;
+      padding: 0 10px;
       flex-shrink: 0;
       margin-left: auto;
+
+      @media (min-width: 640px) {
+        min-width: 32px;
+        height: 28px;
+        border-radius: 14px;
+        font-size: 13px;
+        padding: 0 12px;
+      }
     }
   }
 }
@@ -283,27 +403,35 @@
 // Main content
 .main-content {
   flex: 1;
-  padding: 20px 16px;
+  padding: 12px 12px;
   background-color: var(--mat-sys-surface-container-lowest);
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
   height: 100%;
 
+  @media (min-width: 480px) {
+    padding: 16px 14px;
+  }
+
   @media (min-width: 640px) {
-    padding: 24px 20px;
+    padding: 20px 16px;
   }
 
   @media (min-width: 768px) {
-    padding: 28px 24px;
+    padding: 24px 20px;
   }
 
   @media (min-width: 1024px) {
-    padding: 32px 28px;
+    padding: 28px 24px;
   }
 
   @media (min-width: 1280px) {
     margin-left: 280px;
+    padding: 32px 28px;
+  }
+
+  @media (min-width: 1440px) {
     padding: 36px 32px;
   }
 }
@@ -344,40 +472,64 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
+
+  @media (min-width: 480px) {
+    margin-bottom: 16px;
+    gap: 10px;
+  }
 
   @media (min-width: 640px) {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    gap: 12px;
   }
 
   @media (min-width: 768px) {
+    margin-bottom: 24px;
+  }
+
+  @media (min-width: 1024px) {
     margin-bottom: 28px;
   }
 
   .reviews-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0;
     color: var(--mat-sys-on-surface);
 
+    @media (min-width: 480px) {
+      font-size: 22px;
+    }
+
     @media (min-width: 640px) {
-      font-size: 26px;
+      font-size: 24px;
     }
 
     @media (min-width: 768px) {
+      font-size: 26px;
+    }
+
+    @media (min-width: 1024px) {
       font-size: 28px;
     }
   }
 
   .reviews-count {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--mat-sys-on-surface-variant);
     background-color: var(--mat-sys-surface-container-high);
-    padding: 6px 14px;
-    border-radius: 16px;
+    padding: 5px 12px;
+    border-radius: 14px;
     font-weight: 500;
+
+    @media (min-width: 480px) {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 16px;
+    }
 
     @media (min-width: 640px) {
       font-size: 14px;
@@ -389,20 +541,33 @@
 .reviews-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+
+  @media (min-width: 480px) {
+    gap: 12px;
+  }
 
   @media (min-width: 768px) {
+    gap: 14px;
+  }
+
+  @media (min-width: 1024px) {
     gap: 16px;
   }
 }
 
 .review-card {
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
-  padding: 12px;
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
+
+  @media (min-width: 480px) {
+    padding: 12px;
+    border-radius: 8px;
+  }
 
   @media (min-width: 640px) {
     padding: 14px;
@@ -412,16 +577,24 @@
     padding: 16px;
   }
 
+  @media (min-width: 1024px) {
+    padding: 18px;
+  }
+
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   mat-card-header {
     padding: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: flex;
     align-items: flex-start;
     flex-wrap: nowrap;
+
+    @media (min-width: 480px) {
+      margin-bottom: 10px;
+    }
 
     @media (min-width: 640px) {
       margin-bottom: 12px;
@@ -449,20 +622,28 @@
 
 .review-header {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 10px;
   align-items: flex-start;
+
+  @media (min-width: 480px) {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
 
   @media (min-width: 640px) {
     gap: 12px;
+  }
+
+  @media (min-width: 768px) {
     margin-bottom: 14px;
   }
 }
 
 .review-avatar {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, #0891b2, #06b6d4);
   color: white;
@@ -470,8 +651,15 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   flex-shrink: 0;
+
+  @media (min-width: 480px) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 14px;
+  }
 }
 
 .review-header-content {
@@ -554,18 +742,29 @@
 
 .review-rating {
   display: flex;
-  gap: 3px;
-  margin-bottom: 10px;
+  gap: 2px;
+  margin-bottom: 8px;
+
+  @media (min-width: 480px) {
+    gap: 3px;
+    margin-bottom: 10px;
+  }
 
   @media (min-width: 768px) {
     margin-bottom: 12px;
   }
 
   .star {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
     color: #e0e0e0;
+
+    @media (min-width: 480px) {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
 
     &.filled {
       color: #fbbf24;
@@ -576,10 +775,15 @@
 .review-text {
   color: var(--mat-sys-on-surface);
   line-height: 1.5;
-  margin: 0 0 12px;
-  font-size: 14px;
+  margin: 0 0 10px;
+  font-size: 13px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+
+  @media (min-width: 480px) {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
 
   @media (min-width: 768px) {
     line-height: 1.6;
@@ -613,9 +817,15 @@
 .ai-suggestion {
   background-color: #f0f9ff;
   border: 1px solid #bae6fd;
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 12px;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+
+  @media (min-width: 480px) {
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+  }
 
   @media (min-width: 640px) {
     padding: 14px;
@@ -629,8 +839,13 @@
   .ai-suggestion-header {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
+    gap: 5px;
+    margin-bottom: 7px;
+
+    @media (min-width: 480px) {
+      gap: 6px;
+      margin-bottom: 8px;
+    }
 
     @media (min-width: 640px) {
       margin-bottom: 10px;
@@ -638,15 +853,25 @@
 
     .ai-icon {
       color: #0284c7;
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+
+      @media (min-width: 480px) {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
     }
 
     .ai-label {
       font-weight: 600;
       color: #0369a1;
-      font-size: 13px;
+      font-size: 12px;
+
+      @media (min-width: 480px) {
+        font-size: 13px;
+      }
 
       @media (min-width: 768px) {
         font-size: 14px;
@@ -657,9 +882,14 @@
   .ai-suggestion-text {
     color: #0c4a6e;
     font-style: italic;
-    margin: 0 0 12px;
+    margin: 0 0 10px;
     line-height: 1.5;
-    font-size: 13px;
+    font-size: 12px;
+
+    @media (min-width: 480px) {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
 
     @media (min-width: 640px) {
       margin-bottom: 14px;
@@ -675,8 +905,12 @@
   .ai-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
+
+    @media (min-width: 480px) {
+      gap: 8px;
+    }
 
     @media (min-width: 640px) {
       gap: 10px;
@@ -684,25 +918,45 @@
 
     button {
       flex-shrink: 0;
+      font-size: 13px;
+
+      @media (min-width: 480px) {
+        font-size: 14px;
+      }
 
       mat-icon {
-        margin-right: 6px;
-        font-size: 16px;
-        width: 16px;
-        height: 16px;
+        margin-right: 5px;
+        font-size: 15px;
+        width: 15px;
+        height: 15px;
+
+        @media (min-width: 480px) {
+          margin-right: 6px;
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
       }
     }
 
     .already-responded {
       color: #16a34a;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
+
+      @media (min-width: 480px) {
+        font-size: 13px;
+      }
     }
   }
 }
 
 .response-divider {
-  margin: 12px 0;
+  margin: 10px 0;
+
+  @media (min-width: 480px) {
+    margin: 12px 0;
+  }
 
   @media (min-width: 640px) {
     margin: 14px 0;
@@ -717,11 +971,17 @@
   .response-header {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
+    gap: 5px;
+    margin-bottom: 7px;
     color: var(--mat-sys-on-surface-variant);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
+
+    @media (min-width: 480px) {
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
 
     @media (min-width: 640px) {
       margin-bottom: 10px;
@@ -732,18 +992,29 @@
     }
 
     mat-icon {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
+      font-size: 15px;
+      width: 15px;
+      height: 15px;
+
+      @media (min-width: 480px) {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 
   .response-text {
     color: var(--mat-sys-on-surface);
     margin: 0;
-    padding-left: 22px;
-    font-size: 13px;
+    padding-left: 20px;
+    font-size: 12px;
     line-height: 1.5;
+
+    @media (min-width: 480px) {
+      padding-left: 22px;
+      font-size: 13px;
+    }
 
     @media (min-width: 640px) {
       line-height: 1.55;
@@ -762,21 +1033,45 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 24px;
+  padding: 40px 16px;
   text-align: center;
-  min-height: 400px;
+  min-height: 300px;
+
+  @media (min-width: 480px) {
+    padding: 50px 20px;
+    min-height: 350px;
+  }
+
+  @media (min-width: 640px) {
+    padding: 60px 24px;
+    min-height: 400px;
+  }
 
   @media (min-width: 768px) {
     padding: 80px 32px;
   }
 
   .empty-icon {
-    font-size: 80px;
-    width: 80px;
-    height: 80px;
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
     color: var(--mat-sys-outline);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     opacity: 0.5;
+
+    @media (min-width: 480px) {
+      font-size: 70px;
+      width: 70px;
+      height: 70px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 640px) {
+      font-size: 80px;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+    }
 
     @media (min-width: 768px) {
       font-size: 96px;
@@ -787,10 +1082,19 @@
   }
 
   .empty-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--mat-sys-on-surface);
-    margin: 0 0 12px;
+    margin: 0 0 10px;
+
+    @media (min-width: 480px) {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 640px) {
+      font-size: 24px;
+    }
 
     @media (min-width: 768px) {
       font-size: 28px;
@@ -799,11 +1103,15 @@
   }
 
   .empty-description {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--mat-sys-on-surface-variant);
     margin: 0;
     line-height: 1.6;
     max-width: 500px;
+
+    @media (min-width: 480px) {
+      font-size: 15px;
+    }
 
     @media (min-width: 768px) {
       font-size: 16px;
