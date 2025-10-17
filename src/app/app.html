@@ -170,6 +170,15 @@
                 }
               </mat-card-content>
             </mat-card>
+            } @empty {
+            <div class="empty-state">
+              <mat-icon class="empty-icon">inbox</mat-icon>
+              <h2 class="empty-title">No reviews found</h2>
+              <p class="empty-description">
+                There are no reviews in this category yet. Check back later or select a different
+                filter.
+              </p>
+            </div>
             }
           </div>
         </div>
