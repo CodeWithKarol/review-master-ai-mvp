@@ -12,7 +12,13 @@
 
     <div class="nav-actions">
       <button mat-icon-button aria-label="Notifications">
-        <mat-icon matBadge="2" matBadgeColor="warn" aria-hidden="false">notifications</mat-icon>
+        <mat-icon
+          [matBadge]="newReviewsCount()"
+          matBadgeColor="warn"
+          [matBadgeHidden]="newReviewsCount() === 0"
+          aria-hidden="false"
+          >notifications</mat-icon
+        >
       </button>
     </div>
   </div>

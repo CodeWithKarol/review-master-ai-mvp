@@ -231,6 +231,10 @@ export class App {
     return reviews;
   });
 
+  protected readonly newReviewsCount = computed(() => {
+    return this.allReviews().filter((r) => r.status === 'new').length;
+  });
+
   protected toggleDrawer(): void {
     this.drawerOpened.update((opened) => !opened);
   }
