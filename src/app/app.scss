@@ -902,6 +902,29 @@
     }
   }
 
+  .ai-suggestion-edit {
+    width: 100%;
+    margin: 10px 0;
+
+    @media (min-width: 480px) {
+      margin: 12px 0;
+    }
+
+    textarea {
+      color: #0c4a6e;
+      font-size: 13px;
+      line-height: 1.5;
+
+      @media (min-width: 768px) {
+        font-size: 14px;
+      }
+    }
+
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
   .ai-actions {
     display: flex;
     align-items: center;

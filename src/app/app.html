@@ -145,6 +145,29 @@
                     <mat-icon class="ai-icon">auto_awesome</mat-icon>
                     <span class="ai-label">Suggested Response</span>
                   </div>
+
+                  @if (isEditing(review.id)) {
+                  <!-- Edit Mode -->
+                  <mat-form-field class="ai-suggestion-edit" appearance="outline">
+                    <textarea
+                      matInput
+                      [(ngModel)]="editedSuggestion"
+                      rows="4"
+                      placeholder="Edit your response..."
+                    ></textarea>
+                  </mat-form-field>
+                  <div class="ai-actions">
+                    <button mat-button (click)="cancelEdit()">
+                      <mat-icon>close</mat-icon>
+                      Cancel
+                    </button>
+                    <button mat-raised-button color="accent" (click)="markAsResponded(review.id)">
+                      <mat-icon>check_circle</mat-icon>
+                      Save & Respond
+                    </button>
+                  </div>
+                  } @else {
+                  <!-- View Mode -->
                   <p class="ai-suggestion-text">{{ review.aiSuggestion }}</p>
                   <div class="ai-actions">
                     <button
@@ -158,12 +181,20 @@
                     @if (review.status === 'responded') {
                     <span class="already-responded">✓ Already Responded</span>
                     } @else {
+                    <button
+                      mat-button
+                      (click)="startEditingSuggestion(review.id, review.aiSuggestion!)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                      Edit
+                    </button>
                     <button mat-raised-button color="accent" (click)="markAsResponded(review.id)">
                       <mat-icon>check_circle</mat-icon>
                       Mark as Responded
                     </button>
                     }
                   </div>
+                  }
                 </div>
                 } @if (review.response && review.status === 'responded') {
                 <mat-divider class="response-divider"></mat-divider>

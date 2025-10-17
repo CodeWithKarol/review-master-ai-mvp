@@ -8,7 +8,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -48,6 +51,9 @@ interface Review {
     MatSidenavModule,
     MatChipsModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     DatePipe,
   ],
   templateUrl: './app.html',
@@ -61,6 +67,10 @@ export class App {
 
   // Track which filter is active
   protected readonly activeFilterIndex = signal(0);
+
+  // Track edit mode for each review
+  protected readonly editingReviewId = signal<number | null>(null);
+  protected editedSuggestion = '';
 
   protected readonly allReviews = signal<Review[]>([
     {
@@ -307,11 +317,13 @@ export class App {
     this.allReviews.update((reviews) =>
       reviews.map((review) => {
         if (review.id === reviewId) {
-          // Use AI suggestion if available, otherwise use generic response
+          // Use edited suggestion if in edit mode, otherwise use AI suggestion or generic response
           const responseText =
-            review.response ||
-            review.aiSuggestion ||
-            'Thank you for your feedback! We appreciate your business.';
+            this.editingReviewId() === reviewId
+              ? this.editedSuggestion
+              : review.response ||
+                review.aiSuggestion ||
+                'Thank you for your feedback! We appreciate your business.';
 
           return {
             ...review,
@@ -323,6 +335,26 @@ export class App {
       })
     );
 
+    // Clear edit mode if active
+    if (this.editingReviewId() === reviewId) {
+      this.editingReviewId.set(null);
+      this.editedSuggestion = '';
+    }
+
     this.snackBar.open('Review marked as responded!', 'Close', { duration: 2000 });
+  }
+
+  protected startEditingSuggestion(reviewId: number, currentText: string): void {
+    this.editingReviewId.set(reviewId);
+    this.editedSuggestion = currentText;
+  }
+
+  protected cancelEdit(): void {
+    this.editingReviewId.set(null);
+    this.editedSuggestion = '';
+  }
+
+  protected isEditing(reviewId: number): boolean {
+    return this.editingReviewId() === reviewId;
   }
 }
