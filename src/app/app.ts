@@ -305,9 +305,22 @@ export class App {
 
   protected markAsResponded(reviewId: number): void {
     this.allReviews.update((reviews) =>
-      reviews.map((review) =>
-        review.id === reviewId ? { ...review, status: 'responded' as const } : review
-      )
+      reviews.map((review) => {
+        if (review.id === reviewId) {
+          // Use AI suggestion if available, otherwise use generic response
+          const responseText =
+            review.response ||
+            review.aiSuggestion ||
+            'Thank you for your feedback! We appreciate your business.';
+
+          return {
+            ...review,
+            status: 'responded' as const,
+            response: responseText,
+          };
+        }
+        return review;
+      })
     );
 
     this.snackBar.open('Review marked as responded!', 'Close', { duration: 2000 });
