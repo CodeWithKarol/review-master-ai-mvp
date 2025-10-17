@@ -31,7 +31,7 @@ interface Review {
   rating: number;
   date: Date;
   text: string;
-  status: 'new' | 'responded' | 'needs-response';
+  status: 'responded' | 'pending';
   aiSuggestion?: string;
   response?: string;
 }
@@ -59,12 +59,8 @@ export class App {
   private clipboard = inject(Clipboard);
   private snackBar = inject(MatSnackBar);
 
-  protected readonly filters = signal<FilterItem[]>([
-    { label: 'All Reviews', count: 10, active: true },
-    { label: 'New Reviews', count: 3, active: false },
-    { label: 'Needs Response', count: 3, active: false },
-    { label: 'Responded', count: 4, active: false },
-  ]);
+  // Track which filter is active
+  protected readonly activeFilterIndex = signal(0);
 
   protected readonly allReviews = signal<Review[]>([
     {
@@ -117,7 +113,7 @@ export class App {
       rating: 4,
       date: new Date('2025-10-16'),
       text: 'Solid service and good attention to detail. Pricing was fair and the results exceeded expectations.',
-      status: 'new',
+      status: 'pending',
       aiSuggestion:
         "Thank you for your positive feedback! We're glad to hear that our attention to detail and fair pricing met your expectations.",
     },
@@ -129,7 +125,7 @@ export class App {
       rating: 5,
       date: new Date('2025-10-16'),
       text: 'Absolutely fantastic! From start to finish, everything was perfect. The team was responsive and professional.',
-      status: 'new',
+      status: 'pending',
       aiSuggestion:
         "We're so grateful for your kind words! It's wonderful to hear that you had such a positive experience from start to finish.",
     },
@@ -141,7 +137,7 @@ export class App {
       rating: 3,
       date: new Date('2025-10-15'),
       text: 'Average experience. Nothing wrong but nothing exceptional either. Got the job done.',
-      status: 'needs-response',
+      status: 'pending',
       aiSuggestion:
         'Thank you for taking the time to share your feedback. We appreciate your business and would love to hear more about how we can improve.',
     },
@@ -153,7 +149,7 @@ export class App {
       rating: 1,
       date: new Date('2025-10-12'),
       text: 'Very disappointed. Service was unprofessional and the final product was not what was promised. Would not recommend.',
-      status: 'needs-response',
+      status: 'pending',
       aiSuggestion:
         'We sincerely apologize for falling short of your expectations. This is not the level of service we strive for. Please contact us so we can make this right.',
     },
@@ -178,7 +174,7 @@ export class App {
       rating: 4,
       date: new Date('2025-10-16'),
       text: 'Really impressed with the quality of work. Quick turnaround and fair pricing. Would have given 5 stars but scheduling was a bit difficult.',
-      status: 'new',
+      status: 'pending',
       aiSuggestion:
         "We appreciate your positive feedback! We're glad you were impressed with our work quality and turnaround time. We'll work on improving our scheduling process.",
     },
@@ -190,11 +186,30 @@ export class App {
       rating: 2,
       date: new Date('2025-10-14'),
       text: 'Had high expectations but was let down. The end result was acceptable but the process was frustrating.',
-      status: 'needs-response',
+      status: 'pending',
       aiSuggestion:
         "We're sorry to hear about your frustrating experience. We value your feedback and would appreciate the opportunity to discuss this further.",
     },
   ]);
+
+  // Helper method to determine if a review is "new" (within last 7 days and not responded)
+  private isNewReview(review: Review): boolean {
+    if (review.status === 'responded') return false;
+
+    const now = new Date();
+    const reviewDate = new Date(review.date);
+    const daysDifference = Math.floor(
+      (now.getTime() - reviewDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    return daysDifference <= 7;
+  }
+
+  // Helper method to get display status for a review
+  protected getReviewDisplayStatus(review: Review): 'new' | 'pending' | 'responded' {
+    if (review.status === 'responded') return 'responded';
+    return this.isNewReview(review) ? 'new' : 'pending';
+  }
 
   protected readonly activeFilterLabel = computed(() => {
     const activeFilter = this.filters().find((f) => f.active);
@@ -209,12 +224,8 @@ export class App {
       return reviews;
     }
 
-    if (activeFilter.label === 'New Reviews') {
-      return reviews.filter((r) => r.status === 'new');
-    }
-
     if (activeFilter.label === 'Needs Response') {
-      return reviews.filter((r) => r.status === 'needs-response');
+      return reviews.filter((r) => r.status === 'pending');
     }
 
     if (activeFilter.label === 'Responded') {
@@ -225,7 +236,7 @@ export class App {
   });
 
   protected readonly newReviewsCount = computed(() => {
-    return this.allReviews().filter((r) => r.status === 'new').length;
+    return this.allReviews().filter((r) => this.isNewReview(r)).length;
   });
 
   protected readonly stats = computed<StatCard[]>(() => {
@@ -242,14 +253,33 @@ export class App {
     const respondedCount = reviews.filter((r) => r.status === 'responded').length;
     const responseRate = totalReviews > 0 ? Math.round((respondedCount / totalReviews) * 100) : 0;
 
-    // Count new reviews
-    const newCount = reviews.filter((r) => r.status === 'new').length;
+    // Count pending reviews (all that need response)
+    const pendingCount = reviews.filter((r) => r.status === 'pending').length;
 
     return [
       { value: totalReviews, label: 'Total Reviews' },
       { value: Number(avgRating), label: 'Avg Rating' },
       { value: `${responseRate}%`, label: 'Response Rate' },
-      { value: newCount, label: 'New Reviews' },
+      { value: pendingCount, label: 'Pending' },
+    ];
+  });
+
+  protected readonly filters = computed<FilterItem[]>(() => {
+    const reviews = this.allReviews();
+    const activeIndex = this.activeFilterIndex();
+
+    return [
+      { label: 'All Reviews', count: reviews.length, active: activeIndex === 0 },
+      {
+        label: 'Needs Response',
+        count: reviews.filter((r) => r.status === 'pending').length,
+        active: activeIndex === 1,
+      },
+      {
+        label: 'Responded',
+        count: reviews.filter((r) => r.status === 'responded').length,
+        active: activeIndex === 2,
+      },
     ];
   });
 
@@ -258,12 +288,7 @@ export class App {
   }
 
   protected selectFilter(index: number): void {
-    this.filters.update((filters) =>
-      filters.map((filter, i) => ({
-        ...filter,
-        active: i === index,
-      }))
-    );
+    this.activeFilterIndex.set(index);
   }
 
   protected getStarArray(rating: number): boolean[] {
@@ -285,34 +310,6 @@ export class App {
       )
     );
 
-    this.updateFilterCounts();
-
     this.snackBar.open('Review marked as responded!', 'Close', { duration: 2000 });
-  }
-
-  private updateFilterCounts(): void {
-    const reviews = this.allReviews();
-    const newCount = reviews.filter((r) => r.status === 'new').length;
-    const needsResponseCount = reviews.filter((r) => r.status === 'needs-response').length;
-    const respondedCount = reviews.filter((r) => r.status === 'responded').length;
-    const allCount = reviews.length;
-
-    this.filters.update((filters) =>
-      filters.map((filter) => {
-        if (filter.label === 'All Reviews') {
-          return { ...filter, count: allCount };
-        }
-        if (filter.label === 'New Reviews') {
-          return { ...filter, count: newCount };
-        }
-        if (filter.label === 'Needs Response') {
-          return { ...filter, count: needsResponseCount };
-        }
-        if (filter.label === 'Responded') {
-          return { ...filter, count: respondedCount };
-        }
-        return filter;
-      })
-    );
   }
 }

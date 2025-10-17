@@ -106,12 +106,12 @@
                     <div class="review-author-row">
                       <span class="review-author">{{ review.author }}</span>
                       <div class="review-status-chips">
-                        @if (review.status === 'new') {
+                        @if (getReviewDisplayStatus(review) === 'new') {
                         <mat-chip class="status-chip new">New</mat-chip>
-                        } @if (review.status === 'responded') {
+                        } @else if (getReviewDisplayStatus(review) === 'responded') {
                         <mat-chip class="status-chip responded">Responded</mat-chip>
-                        } @if (review.status === 'needs-response') {
-                        <mat-chip class="status-chip needs-response">Needs Response</mat-chip>
+                        } @else if (getReviewDisplayStatus(review) === 'pending') {
+                        <mat-chip class="status-chip pending">Needs Response</mat-chip>
                         }
                       </div>
                     </div>
