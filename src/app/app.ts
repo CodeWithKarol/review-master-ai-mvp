@@ -59,13 +59,6 @@ export class App {
   private clipboard = inject(Clipboard);
   private snackBar = inject(MatSnackBar);
 
-  protected readonly stats = signal<StatCard[]>([
-    { value: 147, label: 'Total Reviews' },
-    { value: 4.2, label: 'Avg Rating' },
-    { value: '89%', label: 'Response Rate' },
-    { value: 12, label: 'New Reviews' },
-  ]);
-
   protected readonly filters = signal<FilterItem[]>([
     { label: 'All Reviews', count: 10, active: true },
     { label: 'New Reviews', count: 3, active: false },
@@ -233,6 +226,31 @@ export class App {
 
   protected readonly newReviewsCount = computed(() => {
     return this.allReviews().filter((r) => r.status === 'new').length;
+  });
+
+  protected readonly stats = computed<StatCard[]>(() => {
+    const reviews = this.allReviews();
+    const totalReviews = reviews.length;
+
+    // Calculate average rating
+    const avgRating =
+      totalReviews > 0
+        ? (reviews.reduce((sum, review) => sum + review.rating, 0) / totalReviews).toFixed(1)
+        : 0;
+
+    // Calculate response rate
+    const respondedCount = reviews.filter((r) => r.status === 'responded').length;
+    const responseRate = totalReviews > 0 ? Math.round((respondedCount / totalReviews) * 100) : 0;
+
+    // Count new reviews
+    const newCount = reviews.filter((r) => r.status === 'new').length;
+
+    return [
+      { value: totalReviews, label: 'Total Reviews' },
+      { value: Number(avgRating), label: 'Avg Rating' },
+      { value: `${responseRate}%`, label: 'Response Rate' },
+      { value: newCount, label: 'New Reviews' },
+    ];
   });
 
   protected toggleDrawer(): void {
