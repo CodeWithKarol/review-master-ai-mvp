@@ -389,27 +389,27 @@
 .reviews-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 
   @media (min-width: 768px) {
-    gap: 24px;
+    gap: 16px;
   }
 }
 
 .review-card {
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
-  padding: 18px;
+  padding: 12px;
   width: 100%;
   box-sizing: border-box;
 
   @media (min-width: 640px) {
-    padding: 20px;
+    padding: 14px;
   }
 
   @media (min-width: 768px) {
-    padding: 24px;
+    padding: 16px;
   }
 
   &:hover {
@@ -418,17 +418,17 @@
 
   mat-card-header {
     padding: 0;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     display: flex;
     align-items: flex-start;
     flex-wrap: nowrap;
 
     @media (min-width: 640px) {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     @media (min-width: 768px) {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .mat-mdc-card-header-text {
@@ -449,20 +449,20 @@
 
 .review-header {
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 12px;
   align-items: flex-start;
 
   @media (min-width: 640px) {
-    gap: 14px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 14px;
   }
 }
 
 .review-avatar {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, #0891b2, #06b6d4);
   color: white;
@@ -470,7 +470,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 
@@ -488,34 +488,34 @@
 }
 
 .review-author {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin: 0;
   line-height: 1.3;
   color: #1f2937;
 
   @media (min-width: 640px) {
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 
 .review-status-chips {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
 .review-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12px;
   color: #6b7280;
   margin: 0;
   line-height: 1.4;
 
   @media (min-width: 640px) {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -523,7 +523,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
 
   .platform-icon {
@@ -554,17 +554,17 @@
 
 .review-rating {
   display: flex;
-  gap: 4px;
-  margin-bottom: 14px;
+  gap: 3px;
+  margin-bottom: 10px;
 
   @media (min-width: 768px) {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .star {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
     color: #e0e0e0;
 
     &.filled {
@@ -575,24 +575,24 @@
 
 .review-text {
   color: var(--mat-sys-on-surface);
-  line-height: 1.65;
-  margin: 0 0 16px;
-  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  font-size: 14px;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
   @media (min-width: 768px) {
-    line-height: 1.7;
-    margin-bottom: 18px;
+    line-height: 1.6;
+    margin-bottom: 14px;
   }
 }
 
 .status-chip {
-  font-size: 11px !important;
+  font-size: 10px !important;
   font-weight: 500 !important;
-  height: 24px !important;
-  padding: 0 10px !important;
-  border-radius: 12px !important;
+  height: 22px !important;
+  padding: 0 8px !important;
+  border-radius: 11px !important;
 
   &.new {
     background-color: #dbeafe !important;
@@ -613,43 +613,43 @@
 .ai-suggestion {
   background-color: #f0f9ff;
   border: 1px solid #bae6fd;
-  border-radius: 10px;
-  padding: 16px;
-  margin-top: 18px;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
 
   @media (min-width: 640px) {
-    padding: 18px;
-    margin-top: 20px;
+    padding: 14px;
+    margin-top: 14px;
   }
 
   @media (min-width: 768px) {
-    padding: 20px;
+    padding: 16px;
   }
 
   .ai-suggestion-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 8px;
 
     @media (min-width: 640px) {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .ai-icon {
       color: #0284c7;
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
     }
 
     .ai-label {
       font-weight: 600;
       color: #0369a1;
-      font-size: 14px;
+      font-size: 13px;
 
       @media (min-width: 768px) {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
   }
@@ -657,59 +657,59 @@
   .ai-suggestion-text {
     color: #0c4a6e;
     font-style: italic;
-    margin: 0 0 14px;
-    line-height: 1.6;
-    font-size: 14px;
+    margin: 0 0 12px;
+    line-height: 1.5;
+    font-size: 13px;
 
     @media (min-width: 640px) {
-      margin-bottom: 16px;
-      line-height: 1.65;
+      margin-bottom: 14px;
+      line-height: 1.55;
     }
 
     @media (min-width: 768px) {
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.6;
     }
   }
 
   .ai-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
 
     @media (min-width: 640px) {
-      gap: 12px;
+      gap: 10px;
     }
 
     button {
       flex-shrink: 0;
 
       mat-icon {
-        margin-right: 8px;
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
+        margin-right: 6px;
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
       }
     }
 
     .already-responded {
       color: #16a34a;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
     }
   }
 }
 
 .response-divider {
-  margin: 18px 0;
+  margin: 12px 0;
 
   @media (min-width: 640px) {
-    margin: 20px 0;
+    margin: 14px 0;
   }
 
   @media (min-width: 768px) {
-    margin: 22px 0;
+    margin: 16px 0;
   }
 }
 
@@ -717,41 +717,41 @@
   .response-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 8px;
     color: var(--mat-sys-on-surface-variant);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
 
     @media (min-width: 640px) {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     @media (min-width: 768px) {
-      font-size: 15px;
+      font-size: 14px;
     }
 
     mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
     }
   }
 
   .response-text {
     color: var(--mat-sys-on-surface);
     margin: 0;
-    padding-left: 26px;
-    font-size: 14px;
-    line-height: 1.6;
+    padding-left: 22px;
+    font-size: 13px;
+    line-height: 1.5;
 
     @media (min-width: 640px) {
-      line-height: 1.65;
+      line-height: 1.55;
     }
 
     @media (min-width: 768px) {
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.6;
     }
   }
 }

@@ -112,7 +112,8 @@
                     <div class="review-meta">
                       <span
                         class="platform-badge"
-                        [class]="'platform-' + review.platform.toLowerCase()"
+                        [class.platform-google]="review.platform.toLowerCase() === 'google'"
+                        [class.platform-yelp]="review.platform.toLowerCase() === 'yelp'"
                       >
                         <span class="platform-icon">●</span>
                         {{ review.platform }}
